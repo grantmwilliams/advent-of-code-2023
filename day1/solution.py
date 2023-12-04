@@ -1,11 +1,12 @@
 import re
 
 
-def part1(input_values: list[str]) -> int:
-    return sum(int(x[0]+x[-1]) for x in map(lambda x: re.findall("[0-9]", x), input_values) if x)
+def part1(v):
+    return sum(int(x[0]+x[-1]) for x in map(lambda l: re.findall("[0-9]",l),v) if x)
 
-def part2(input_values: list[str], digit_patterns = {"one": "1","two": "2","three": "3","four": "4","five": "5","six": "6","seven": "7","eight": "8","nine": "9"}) -> int:
-    return sum(int(digit_patterns.get(x[0], x[0])+digit_patterns.get(x[-1], x[-1])) for x in map(lambda x: re.findall(f"(?=(\d|{'|'.join(digit_patterns.keys())}))", x), input_values) if x)
+
+def part2(v,d=dict(zip(["one","two","three","four","five","six","seven","eight","nine"],map(str,range(1,10))))):
+    return sum(int(x[0]+x[-1]) for x in map(lambda l: [d.get(y,y) for y in re.findall(f"(?=(\d|{'|'.join(d.keys())}))",l)],v) if x)
 
 def main() -> None:
     print("|--Day1--|")
