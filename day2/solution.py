@@ -1,12 +1,12 @@
 import re
-import math
+from math import prod
 
 
-def part1(input_values:list[str], max_color_values={"red":12,"green":13,"blue":14})-> int:
-    return sum(int(re.search(r"Game\s(\d+):\s", value).group(1)) for value in input_values if not any(max(map(int, re.findall(f"(\d+)\s{color}", value))) > max_color_values[color] for color in max_color_values))
+def part1(v,m={"red":12,"green":13,"blue":14}):
+    return sum(int(re.search(r"Game\s(\d+):\s",x).group(1)) for x in v if not any(max(map(int, re.findall(f"(\d+)\s{c}", x))) > m[c] for c in m))
 
-def part2(input_values: list[str]):
-    return sum(math.prod(max(map(int, re.findall(f"(\d+)\s{color}", value))) for color in ["red", "green", "blue"]) for value in input_values)
+def part2(v):
+    return sum(prod(max(map(int, re.findall(f"(\d+)\s{c}", x))) for c in ["red","green","blue"]) for x in v)
 
 def main() -> None:
     print("|--Day2--|")
